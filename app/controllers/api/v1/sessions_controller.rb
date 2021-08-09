@@ -5,26 +5,31 @@ module Api
     class SessionsController < ApplicationController
       def create
         hmac_secret = '$C21$'
-        @user = User.find_by(username: params[:username])
-        payload = {
-          username: @user.username,
-          first_name: @user.first_name,
-          user_type: @user.user_type
-        }
+        @user = User.find_by(username: session_params[:username])
+        puts session_params
         if @user
-          if @user.password == params[:password]
-            token = JWT.encode payload, hmac_secret, 'HS256'
-            render json: { token: token }, status: 200
+          if @user.user_type == session_params[:user_type]
+            if @user.password == session_params[:password]
+              payload = {
+                username: @user.username,
+                first_name: @user.first_name,
+                user_type: @user.user_type
+              }
+              token = JWT.encode payload, hmac_secret, 'HS256'
+              render json: { token: token }, status: 200
+            else
+              render json: { reason: 'Incorrect Password' }, status: 400
+            end
           else
-            render json: { error: 'Incorrect password' }, status: 400
+            render json: { reason: 'Incorrect User Type' }, status: 400
           end
         else
-          render json: { error: 'User don\'t exist' }, status: 400
+          render json: { reason: 'User don\'t exist' }, status: 400
         end
       end
 
       def session_params
-        params.require(:user).permit(:username, :password, :user_type)
+        params.require(:session).permit(:username, :password, :user_type)
       end
     end
   end

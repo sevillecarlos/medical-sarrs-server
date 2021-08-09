@@ -6,10 +6,11 @@ module Api
   module V1
     class UsersController < ApplicationController
       def index; end
+
       def create
         @user = User.new(user_params)
         if @user.save
-         render json: { user: @user.username, password: @user.password, type: @user.user_type }
+          render json: { user: @user.username, password: @user.password, type: @user.user_type }
         else
           render json: { error: @user.errors }, status: 400
         end
