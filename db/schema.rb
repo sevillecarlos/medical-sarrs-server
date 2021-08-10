@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_805_184_927) do
+ActiveRecord::Schema.define(version: 20_210_810_035_517) do
   create_table 'categories', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', precision: 6, null: false
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(version: 20_210_805_184_927) do
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'category_id'
     t.index ['category_id'], name: 'index_items_on_category_id'
+  end
+
+  create_table 'patients', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'birth_date'
+    t.string 'patient_gender'
+    t.string 'phone_number'
+    t.string 'address'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'patient_id'
   end
 
   create_table 'sessions', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
