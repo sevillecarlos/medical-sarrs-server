@@ -13,7 +13,7 @@ module Api
         if @item.save
           render json: @item, status: 200
         else
-          render json: { reason: 'Error adding item' }, status: 400
+          render json: { reason: 'That name already exist' }, status: 400
         end
       end
 
