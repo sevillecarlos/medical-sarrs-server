@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class MedicalRecordMedicineTest < ActiveSupport::TestCase
+class MedicalRecordsDocumentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class MedicalRecord < ApplicationRecord
-  has_many :medical_record_ailments
-  has_many :medical_record_alergies
-  has_many :medical_record_medicines
-  has_many :medical_record_documents
-  has_many :appointments
+  has_one :patient
+  has_one_attached :patient_photo
+  has_many :medical_records_alergy
+  has_many :medical_records_ailment
+  has_many :medical_records_medicine
+  has_many :medical_records_document
 end

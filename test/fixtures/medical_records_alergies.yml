@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alergy_detail: MyString
+  alergy_to: MyString
+  alergy_type: 
+
+two:
+  alergy_detail: MyString
+  alergy_to: MyString
+  alergy_type: 

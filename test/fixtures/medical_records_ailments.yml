@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ailment_type: MyString
+  ailment_to: MyString
+  ailment_detail: MyString
+
+two:
+  ailment_type: MyString
+  ailment_to: MyString
+  ailment_detail: MyString

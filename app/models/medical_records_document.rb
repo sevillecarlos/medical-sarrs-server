@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class MedicalRecordMedicine < ApplicationRecord
+class MedicalRecordsDocument < ApplicationRecord
   belongs_to :medical_record
 end
