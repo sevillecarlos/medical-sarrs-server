@@ -1,24 +1,14 @@
-# README
+# Medical SARRS Server
+## In Construction 🚧
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Author
+## Carlos Alberto Sevilla Fernandez
+* Github: [@sevillecarlos](https://github.com/sevillecarlos)
+* LinkedIn: [Carlos Alberto Sevilla Fernandez](https://github.com/sevillecarlos)
 
-Things you may want to cover:
+# Contributing
+Contributions, issues and feature requests are welcome!
+Feel free to check the [Issues Page](https://github.com/sevillecarlos/medical-sarrs-server/issues).
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# License
+This project is [MIT](https://opensource.org/licenses/MIT) licensed.
