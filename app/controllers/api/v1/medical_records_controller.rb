@@ -4,12 +4,9 @@ module Api
   module V1
     class MedicalRecordsController < ApplicationController
       def show
-        @medical_record = MedicalRecord.all
-        if @medical_record
-          render json: @medical_record, status: 200
-        else
-          render json: { error: 'Medical not find' }, status: 400
-        end
+        @medical_record = MedicalRecord.find(params[:id])
+        render json: { medical_ailment: @medical_record.medical_records_ailment, medical_alergy: @medical_record.medical_records_alergy, medical_medicine: @medical_record.medical_records_medicine, medical_document: @medical_record.medical_records_document },
+               status: 200
       end
 
       def index
@@ -22,7 +19,6 @@ module Api
         @ailments = ActiveSupport::JSON.decode(params[:ailments])
         @medicines = ActiveSupport::JSON.decode(params[:medicines])
         @documents = ActiveSupport::JSON.decode(params[:document])
-
         @medical_records = MedicalRecord.new({ patient_id: medical_record_params[:patient_id],
                                                blood_type: medical_record_params[:blood_type], patient_photo: medical_record_params[:patient_photo] })
         if @medical_records.save
@@ -59,6 +55,7 @@ module Api
                                             document_type: document['document_type'],
                                             document_name: document['document_name'],
                                             document_detail: document['document_detail'],
+                                            document_photo: document['document_photo'],
                                             document_date: document['document_date'],
                                             medical_record_id: @medical_records[:id]
 
@@ -68,10 +65,21 @@ module Api
         end
       end
 
+      def destroy
+        MedicalRecordsAilment.find_by({ medical_record_id: params[:id] }).delete
+        MedicalRecordsAlergy.find_by({ medical_record_id: params[:id] }).delete
+        MedicalRecordsDocument.find_by({ medical_record_id: params[:id] }).delete
+        MedicalRecordsMedicine.find_by({ medical_record_id: params[:id] }).delete
+
+        @medical_record = MedicalRecord.find(params[:id])
+        render json: true, status: 200 if @medical_record.delete
+      end
+
       private
 
       def medical_record_params
-        params.permit(:patient_id, :patient_photo, :blood_type, alergies: [], ailments: [], document: [], medicines: [])
+        params.permit(:patient_id, :patient_photo, :blood_type, alergies: [], ailments: [], document: %i[document_type document_name document_date document_detail document_photo
+                                                                                                         medical_record_id], medicines: [])
       end
     end
   end

@@ -18,13 +18,13 @@ module Api
       end
 
       def create
-        # @check_patient_exist = Patient.find_by(patient_id: patient_params(:patient_id))
-        # if @check_patient_exist
         @patient = Patient.create(patient_params)
         render json: { reason: 'You created patient successfully' }, status: 200
-        # else
-        #   render json: { reason: 'Patient already exist' }, status: 400
-        # end
+      end
+
+      def update
+        @patient = Patient.find(params[:id])
+        render json: true, status: 200 if @patient.update(patient_params)
       end
 
       private

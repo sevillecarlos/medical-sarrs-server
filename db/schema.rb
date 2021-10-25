@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_909_015_610) do
+ActiveRecord::Schema.define(version: 20_211_024_215_101) do
   create_table 'active_storage_attachments', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'record_type', null: false
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20_210_909_015_610) do
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'patient_id'
     t.boolean 'status'
+    t.string 'user_log_update'
+    t.string 'user_log_create'
     t.index ['patient_id'], name: 'index_appointments_on_patient_id'
   end
 
@@ -67,14 +69,16 @@ ActiveRecord::Schema.define(version: 20_210_909_015_610) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'category_id'
+    t.string 'user_log_create'
+    t.string 'user_log_update'
     t.index ['category_id'], name: 'index_items_on_category_id'
   end
 
   create_table 'medical_records', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.bigint 'patient_id'
     t.string 'blood_type'
+    t.bigint 'patient_id'
     t.index ['patient_id'], name: 'index_medical_records_on_patient_id'
   end
 
@@ -120,6 +124,7 @@ ActiveRecord::Schema.define(version: 20_210_909_015_610) do
   end
 
   create_table 'patients', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
+    t.string 'patient_id'
     t.string 'first_name'
     t.string 'last_name'
     t.string 'birth_date'
@@ -128,9 +133,6 @@ ActiveRecord::Schema.define(version: 20_210_909_015_610) do
     t.string 'address'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.string 'patient_id'
-    t.bigint 'medical_record_id'
-    t.index ['medical_record_id'], name: 'index_patients_on_medical_record_id'
   end
 
   create_table 'sessions', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|

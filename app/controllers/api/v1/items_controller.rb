@@ -10,11 +10,7 @@ module Api
 
       def create
         @item = Item.new(item_params)
-        if @item.save
-          render json: @item, status: 200
-        else
-          render json: { reason: 'That name already exist' }, status: 400
-        end
+        render json: @item, status: 200 if @item.save
       end
 
       def update
@@ -28,16 +24,14 @@ module Api
       end
 
       def destroy
-        @item =  Item.find(params[:id])
-        @items = Item.all
-        p @item
+        @item = Item.find(params[:id])
         render json: true, status: 200 if @item.delete
       end
 
       private
 
       def item_params
-        params.require(:item).permit(:name, :quantity, :detail, :category_id)
+        params.require(:item).permit(:name, :quantity, :detail, :category_id, :user_log_create, :user_log_update)
       end
     end
   end

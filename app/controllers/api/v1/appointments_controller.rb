@@ -8,7 +8,10 @@ module Api
         render json: @appointment, status: 200
       end
 
-      def show; end
+      def show
+        @patientAppointment = Patient.find(params[:id])
+        render json: @patientAppointment.appointments, status: 200
+      end
 
       def create
         @appointment = Appointment.new(appointment_params)
@@ -33,7 +36,8 @@ module Api
       private
 
       def appointment_params
-        params.require(:appointment).permit(:date, :time, :reason, :patient_id, :status)
+        params.require(:appointment).permit(:date, :time, :reason, :patient_id, :status, :user_log_create,
+                                            :user_log_update)
       end
     end
   end

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       resources :patients
       resources :appointments
       resources :medical_records
+      resources :medical_records_alergies
+      resources :medical_records_ailments
+      resources :medical_records_medicines
+      resources :medical_records_documents
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
