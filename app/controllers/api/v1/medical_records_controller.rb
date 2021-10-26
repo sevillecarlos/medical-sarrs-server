@@ -18,11 +18,10 @@ module Api
         @alergies = ActiveSupport::JSON.decode(params[:alergies])
         @ailments = ActiveSupport::JSON.decode(params[:ailments])
         @medicines = ActiveSupport::JSON.decode(params[:medicines])
-        @documents = ActiveSupport::JSON.decode(params[:document])
+        @documents = ActiveSupport::JSON.decode(params[:documents])
         @medical_records = MedicalRecord.new({ patient_id: medical_record_params[:patient_id],
                                                blood_type: medical_record_params[:blood_type], patient_photo: medical_record_params[:patient_photo] })
         if @medical_records.save
-          p @alergies
           @alergies.select do |alergy|
             MedicalRecordsAlergy.create({
                                           alergy_to: alergy['alergy_to'],
@@ -66,20 +65,18 @@ module Api
       end
 
       def destroy
-        MedicalRecordsAilment.find_by({ medical_record_id: params[:id] }).delete
-        MedicalRecordsAlergy.find_by({ medical_record_id: params[:id] }).delete
-        MedicalRecordsDocument.find_by({ medical_record_id: params[:id] }).delete
-        MedicalRecordsMedicine.find_by({ medical_record_id: params[:id] }).delete
+        if MedicalRecordsAilment.find_by({ medical_record_id: params[:id] }).delete && MedicalRecordsAlergy.find_by({ medical_record_id: params[:id] }).delete && MedicalRecordsDocument.find_by({ medical_record_id: params[:id] }).delete && MedicalRecordsMedicine.find_by({ medical_record_id: params[:id] }).delete
+          @medical_record = MedicalRecord.find(params[:id])
+          render json: true, status: 200 if @medical_record.delete
 
-        @medical_record = MedicalRecord.find(params[:id])
-        render json: true, status: 200 if @medical_record.delete
+        end
       end
 
       private
 
       def medical_record_params
-        params.permit(:patient_id, :patient_photo, :blood_type, alergies: [], ailments: [], document: %i[document_type document_name document_date document_detail document_photo
-                                                                                                         medical_record_id], medicines: [])
+        params.permit(:patient_id, :patient_photo, :blood_type, alergies: [], ailments: [],
+                                                                documents: [], medicines: [])
       end
     end
   end

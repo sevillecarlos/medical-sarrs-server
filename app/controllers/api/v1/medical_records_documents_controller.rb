@@ -5,14 +5,12 @@ module Api
     class MedicalRecordsDocumentsController < ApplicationController
       def show
         @patientMedicalRecord = MedicalRecord.find(params[:id])
-        p '**************************************'
-        p @patientMedicalRecord
-        p '**************************************'
         render json: @patientMedicalRecord.medical_records_documents, status: 200 if @patientMedicalRecord
       end
 
       def create
         @medical_records_documents = MedicalRecordsDocument.new(medical_records_document_params)
+
         render json: true, status: 200 if @medical_records_documents.save
       end
 
